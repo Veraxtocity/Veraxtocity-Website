@@ -109,14 +109,20 @@
         }
 
         .input_field {
-            width: calc(100% - 40px);
+            width: calc(80% - 40px); /* Adjusted width */
             padding: 10px;
             margin: 20px 0;
             border: 1px solid #303030;
             border-radius: 5px;
-            transition: background-color 0.5s ease;
+            transition: border-color 0.5s ease;
             background-color: #262626;
             color: #c0c0c0;
+            text-align: center; /* Center the text entered by the user */
+        }
+
+        .input_field::placeholder {
+            color: #999;
+            text-align: center; /* Center the placeholder text */
         }
 
         .execute_button {
@@ -173,7 +179,7 @@
     <div class="background"></div>
     <div class="container">
         <div class="header">
-            <h1>Welcome to Veraxtocity Terminal</h1>
+            <h1>Veraxtocity Terminal</h1>
         </div>
         <div class="cards">
             <div class="card" id="execution_timer_card">
@@ -190,79 +196,59 @@
             </div>
         </div>
         <div class="bottom_card">
-            <input type="text" id="command_input" class="input_field" placeholder="Enter command" autocomplete="off">
-            <button class="execute_button" id="execute_button" onclick="execute_command()">Execute</button>
+            <input type="text" id="input_field" class="input_field" placeholder="Enter Command" autocomplete="off">
+            <button id="execute_button" class="execute_button">Execute</button>
         </div>
     </div>
-
     <script>
-        function execute_command() {
-            // Get the input field value
-            var command_input = document.getElementById("command_input");
-            var command = command_input.value.trim();
+        document.addEventListener('DOMContentLoaded', () => {
+            const execute_button = document.getElementById('execute_button');
+            const input_field = document.getElementById('input_field');
+            const execution_timer_label = document.getElementById('execution_timer_label');
+            const syphen_dimension_label = document.getElementById('syphen_dimension_label');
+            const execution_code_label = document.getElementById('execution_code_label');
 
-            // Check if the input field is empty
-            if (command === "") {
-                // Change the background color to red
-                command_input.style.backgroundColor = "red";
-                setTimeout(function() {
-                    // Change the background color back after 1 second
-                    command_input.style.backgroundColor = "#262626";
-                }, 1000);
-                return;
-            }
+            execute_button.addEventListener('click', () => {
+                const code = input_field.value.trim();
 
-            // Disable the execute button
-            var execute_button = document.getElementById("execute_button");
-            execute_button.disabled = true;
-
-            // Update the label in the Execution Code card with the input value
-            var execution_code_label = document.getElementById("execution_code_label");
-            execution_code_label.textContent = command;
-
-            // Clear the input field
-            command_input.value = "";
-
-            // Start the countdown timer in the Execution Timer label
-            var execution_timer_label = document.getElementById("execution_timer_label");
-
-            var countdown = Math.floor(Math.random() * (15 - 4 + 1)) + 4; // Random number between 4 and 15
-            var start_time = Date.now();
-
-            var timer = setInterval(function() {
-                var elapsed_time = Date.now() - start_time;
-                var remaining_time = (countdown * 1000) - elapsed_time;
-
-                if (remaining_time <= 0) {
-                    clearInterval(timer);
-                    execution_timer_label.textContent = "Executed!";
-                    setTimeout(function() {
-                        // Reset all labels to default values after 1 second
-                        execution_timer_label.textContent = "miscellaneous";
-                        execution_code_label.textContent = "miscellaneous";
-                        syphen_dimension_label.textContent = "miscellaneous";
-                        
-                        // Enable the execute button
-                        execute_button.disabled = false;
+                if (!code) {
+                    input_field.style.borderColor = 'white';
+                    setTimeout(() => {
+                        input_field.style.borderColor = '#303030';
                     }, 1000);
-                } else {
-                    var seconds = (remaining_time / 1000).toFixed(2);
-                    execution_timer_label.textContent = seconds;
+                    return;
                 }
-            }, 10);
 
-            // Generate the Syphen Dimension label text using JavaScript
-            function generate_syphen_dimension() {
-                var letters = 'abcdefghijklmnopqrstuvwxyz';
-                var first_letter = letters.charAt(Math.floor(Math.random() * letters.length)).toUpperCase();
-                var second_letter = letters.charAt(Math.floor(Math.random() * letters.length)).toUpperCase();
-                var number = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
-                return `${first_letter}${second_letter}-${number}`;
-            }
-            
-            var syphen_dimension_label = document.getElementById("syphen_dimension_label");
-            syphen_dimension_label.textContent = generate_syphen_dimension();
-        }
+                execution_code_label.textContent = code;
+                execution_timer_label.textContent = "4.00";  // Reset the timer label
+
+                // Timer
+                let time_left = 4.00;
+                const timer_interval = setInterval(() => {
+                    time_left -= 0.01;
+                    if (time_left <= 0) {
+                        clearInterval(timer_interval);
+                        execution_timer_label.textContent = "Executed!";
+                        setTimeout(() => {
+                            execution_timer_label.textContent = "miscellaneous";
+                            execution_code_label.textContent = "miscellaneous";
+                            syphen_dimension_label.textContent = "miscellaneous";
+                        }, 1000);
+                        execute_button.disabled = false;
+                    } else {
+                        execution_timer_label.textContent = time_left.toFixed(2);
+                    }
+                }, 10);
+
+                // Syphen Dimension label
+                const random_code = `${String.fromCharCode(65 + Math.floor(Math.random() * 26))}${String.fromCharCode(65 + Math.floor(Math.random() * 26))}-${Math.floor(Math.random() * 10000).toString().padStart(3, '0')}`;
+                syphen_dimension_label.textContent = random_code;
+
+                execute_button.disabled = true;
+
+                input_field.value = "";
+            });
+        });
     </script>
 </body>
 </html>
