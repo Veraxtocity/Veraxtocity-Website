@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Ipsum</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            background-color: #0f0f0f;
+            position: relative;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            mask-image: radial-gradient(circle, black, rgba(0,0,0,0.1)); /* Updated mask-image */
+            background: radial-gradient(circle at 15px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 45px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 75px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 105px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 135px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 165px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 195px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 225px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 255px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 285px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 315px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%), radial-gradient(circle at 345px 15px, rgba(255, 255, 255, 0.05) 5%, transparent 6%);
+            background-size: 60px 30px;
+            animation: scrollBackground 45s linear infinite;
+            opacity: 0.7; /* Adjust the opacity for fading effect */
+        }
+
+        @keyframes scrollBackground {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 30px;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 30px;
+            text-align: center;
+            width: 100%; /* Adjusted width */
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+        
+        .card p {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="cards">
+            <div class="card">
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Consectetur adipisicing elit. Perspiciatis, minus?</p>
+                <p>Porro harum illum ipsam distinctio ad fugit!</p>
+                <p>Aperiam beatae earum placeat voluptatibus inventore excepturi nihil harum.</p>
+            </div>
+    </div>
+</body>
+</html>
